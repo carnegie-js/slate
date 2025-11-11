@@ -1,7 +1,6 @@
-
-const urlParams = new URLSearchParams(window.location.search);
-const paramValue = urlParams.get('k');
 function briteVerify(email, callback) {
+	const urlParams = new URLSearchParams(window.location.search);
+	const paramValue = urlParams.get('k');
 	if (email) {		
 		var myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
@@ -69,4 +68,5 @@ function initializeAllForms() {
         setTimeout(initializeAllForms, 1000);
     }
 }
+
 initializeAllForms();
