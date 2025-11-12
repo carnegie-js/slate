@@ -1,6 +1,6 @@
+var url = new URL(document.currentScript.src);
+var kValue = url.searchParams.get('k');
 function briteVerify(email, callback) {
-	const url = new URL(document.currentScript.src);
-    const kValue = url.searchParams.get('k');
 	if (email) {		
 		var myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
@@ -29,18 +29,18 @@ function briteVerify(email, callback) {
 	} else { callback(false); }
 }
 function setupFormVerification(formElement) {
-    const emailInput = formElement.querySelector('input[type="email"]');
-    const submitButton = formElement.querySelector('button');
+    var emailInput = formElement.querySelector('input[type="email"]');
+    var submitButton = formElement.querySelector('button');
     if (emailInput && submitButton) {
-        const divElement = emailInput.parentElement.parentElement;
+        var divElement = emailInput.parentElement.parentElement;
 
         submitButton.addEventListener('click', function(event) {
             event.preventDefault();
             event.stopPropagation();
             
             briteVerify(emailInput.value, function(result) { 
-                const dataEmbed = formElement.getAttribute('data-embed');
-                const form = window[dataEmbed];
+                var dataEmbed = formElement.getAttribute('data-embed');
+                var form = window[dataEmbed];
 
                 if (result) {
                     if (divElement) divElement.classList.remove('required');
@@ -67,5 +67,6 @@ function initializeAllForms() {
 }
 
 initializeAllForms();
+
 
 
