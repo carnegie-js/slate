@@ -32,8 +32,7 @@ function setupFormVerification(formElement) {
     const emailInput = formElement.querySelector('input[type="email"]');
     const submitButton = formElement.querySelector('button');
     if (emailInput && submitButton) {
-        const divElement = emailInput.parentElement;
-		const divElementParent = divElement.parentElement;
+        const divElement = emailInput.parentElement.parentElement;
 
         submitButton.addEventListener('click', function(event) {
             event.preventDefault();
@@ -45,13 +44,11 @@ function setupFormVerification(formElement) {
 
                 if (result) {
                     if (divElement) divElement.classList.remove('required');
-					if (divElementParent) divElementParent.classList.remove('required');
                     if (form && form.Validate()) {
                         FW.Lazy.Commit(submitButton, { cmd: 'submit' });
                     }
                 } else {
                     if (divElement) divElement.classList.add('required');
-					if (divElementParent) divElementParent.classList.remove('required');
                 }
             });
         }, true);
@@ -70,4 +67,5 @@ function initializeAllForms() {
 }
 
 initializeAllForms();
+
 
