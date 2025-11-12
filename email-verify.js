@@ -1,10 +1,10 @@
 function briteVerify(email, callback) {
-	const urlParams = new URLSearchParams(window.location.search);
-	const paramValue = urlParams.get('k');
+	const url = new URL(document.currentScript.src);
+    const kValue = url.searchParams.get('k');
 	if (email) {		
 		var myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
-		myHeaders.append("Authorization", "ApiKey: " + paramValue);
+		myHeaders.append("Authorization", "ApiKey: " + kValue);
 
 		var raw = JSON.stringify({
 		  "email": email
@@ -70,3 +70,4 @@ function initializeAllForms() {
 }
 
 initializeAllForms();
+
