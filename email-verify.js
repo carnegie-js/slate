@@ -1,44 +1,44 @@
-var url = new URL(document.currentScript.src);
-var kValue = url.searchParams.get('k');
+let url = new URL(document.currentScript.src);
+let kValue = url.searchParams.get('k');
 function briteVerify(email, callback) {
 	if (email) {		
-		var myHeaders = new Headers();
+		let myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
 		myHeaders.append("Authorization", "ApiKey: " + kValue);
-
-		var raw = JSON.stringify({
+		
+		let raw = JSON.stringify({
 		  "email": email
 		});
-
-		var requestOptions = {
+		
+		let requestOptions = {
 		  method: 'POST',
 		  headers: myHeaders,
 		  body: raw,
 		  redirect: 'follow'
 		};
-
+		
 		fetch("https://bpi.briteverify.com/api/public/v1/fullverify", requestOptions)
 		  .then(response => { return response.json(); })	
 		  .then(data => {
-				var isValid = (data.email.status === 'valid');
+				let isValid = (data.email.status === 'valid');
 				callback(isValid);
 		  })
 		  .catch(error => callback(true));
 	} else { callback(false); }
 }
 function setupFormVerification(formElement) {
-    var emailInput = formElement.querySelector('input[type="email"]');
-    var submitButton = formElement.querySelector('button');
+    let emailInput = formElement.querySelector('input[type="email"]');
+    let submitButton = formElement.querySelector('button');
+	
     if (emailInput && submitButton) {
-        var divElement = emailInput.parentElement.parentElement;
-
+        let divElement = emailInput.parentElement.parentElement;
+		
         submitButton.addEventListener('click', function(event) {
             event.preventDefault();
-            event.stopPropagation();
-            
+            event.stopPropagation();            
             briteVerify(emailInput.value, function(result) { 
-                var dataEmbed = formElement.getAttribute('data-embed');
-                var form = window[dataEmbed];
+                let dataEmbed = formElement.getAttribute('data-embed');
+                let form = window[dataEmbed];
 
                 if (result) {
                     if (divElement) divElement.classList.remove('required');
@@ -53,18 +53,16 @@ function setupFormVerification(formElement) {
     }
 }
 function initializeAllForms() {
-    var formElements = document.querySelectorAll('form');
-    
+    let formElements = document.querySelectorAll('form');  
+	
     if (formElements.length > 0) {
         formElements.forEach(form => {
             setupFormVerification(form);
         });
-    } else { 
-        setTimeout(initializeAllForms, 1000);
-    }
+    } else {  setTimeout(initializeAllForms, 1000); }
 }
-
 initializeAllForms();
+
 
 
 
