@@ -21,11 +21,9 @@ function briteVerify(email, callback) {
 		  .then(response => { return response.json(); })	
 		  .then(data => {
 				var isValid = (data.email.status === 'valid');
-				if (typeof callback === 'function') {
-					callback(isValid);
-				}
+				callback(isValid);
 		  })
-		  .catch(error => console.log('error', error));
+		  .catch(error => callback(true));
 	} else { callback(false); }
 }
 function setupFormVerification(formElement) {
@@ -67,6 +65,7 @@ function initializeAllForms() {
 }
 
 initializeAllForms();
+
 
 
 
